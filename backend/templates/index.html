@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4 text-center text-primary">Discover Delicious Recipes</h1>
+<div class="row">
+    {% for recipe in recipes %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm hover-card">
+            {% if recipe.image_url %}
+            <img src="{{ recipe.image_url }}" class="card-img-top" alt="{{ recipe.title }}" loading="lazy">
+            {% else %}
+            <img src="{{ url_for('static', filename='images/default_recipe.jpg') }}" class="card-img-top" alt="Default Image" loading="lazy">
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ recipe.title }}</h5>
+                <p class="card-text text-muted">{{ recipe.category }}</p>
+                <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}" class="mt-auto btn btn-primary">View Recipe</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
